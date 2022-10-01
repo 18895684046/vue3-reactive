@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>体验vue3的响应式函数</title>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+<script src="node_modules/@vue/reactivity/dist/reactivity.global.js"></script>
+<script>
+    let { reactive, shallowReactive, readonly, shallowReadonly, effect } = VueReactivity
+    let school = { name: "实验", age: 12, address: { num: 456 } }
+    let proxy = reactive(school)  // 当我在 effect 中取值 的时候进行依赖收集
+    // 当赋值的时候 会重新执行 effect
+
+    //  effect 默认会执行，执行时，收集属性的依赖
+    //  watch computed 也是基于 effect 实现的
+    effect(() => {
+        console.log('执行effect...');
+        app.innerHTML = proxy.name + ':' + proxy.age + ': ' + proxy.address.num
+    })
+    setTimeout(() => {
+        proxy.name = '鹏程'  // name 变化对应的 effect 就会执行
+    }, 1000);
+
+    setTimeout(() => {
+        proxy.address.num = '18897'  // num 变化对应的 effect 就会执行
+    }, 2000);
+
+    //  reactive 会将对象里的所有对象都进行代理 proxy
+    // shallowReactive 只代理第一层对象
+    //  readonly 表示会被代理，但是不进行依赖收集，可以节约性能
+    //  shallowReadonly  因为外层没有收集依赖，虽然里层能改，但是不会更新视图
+
+</script>
+
+</html>
