@@ -14,13 +14,15 @@
 <script src="../node_modules/@vue/reactiveity/dist/reactivity.global.js"></script>
 <script>
     let { reactive, shallowReactive, readonly, shallowReadonly, effect } = VueReactivity
-    const school = {name:'张争',age:"26"}
+    const school = {name:'张争',age:"26",address:{num:234},arr:[1,2,3]}
 
-    let obj1 = readonly(school)
-    let obj2 = shallowReactive(school)
-    // console.log(obj1 === obj2,'--');
-    // obj1.prop = 1
-    console.log(obj1.name);
+    let proxyObj = reactive(school)
+
+    //  effect 默认这个函数会执行一次，执行的时候把用到的属性和这个 effect 关联在一起
+    //  下次更新的时候 会再次执行这个 effect
+    effect(()=>{
+
+    },{lazy:false})
 
 </script>
 
