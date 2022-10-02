@@ -14,16 +14,28 @@
 <script src="../node_modules/@vue/reactiveity/dist/reactivity.global.js"></script>
 <script>
     let { reactive, shallowReactive, readonly, shallowReadonly, effect } = VueReactivity
-    const school = {name:'张争',age:"26",address:{num:234},arr:[1,2,3]}
+    const school = { name: '张争', age: "26", address: { num: 234 }, arr: [1, 2, 3] }
+    const person = { gender: "男人" }
 
     let proxyObj = reactive(school)
+    let proxyObj2 = reactive(person)
 
     //  effect 默认这个函数会执行一次，执行的时候把用到的属性和这个 effect 关联在一起
     //  下次更新的时候 会再次执行这个 effect
-    effect(()=>{
+    // 当你调用  stringify 的时候，会访问数组中的每一个属性，包括 length
+    effect(() => {
+        // console.log(JSON.stringify(proxyObj.arr)); // 第二种
 
-    },{lazy:false})
+        // console.log(proxyObj.arr.length);  --// ---第一种 --- console.log(proxyObj.arr[2]); 
+    })
+    // proxyObj.arr.push(100)  //第二种 push先 ->【1,2,3,100】 -> 然后把 length 变成 4
+    proxyObj.arr[1] = '1111'
 
+    // proxyObj.arr.length = 1  第一种
+    
+    //  1，通过索引更新数组
+    // 2. 可以通过length 来修改
+    // 3。 去 lenght ，新增
 </script>
 
 </html>
