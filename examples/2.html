@@ -24,18 +24,18 @@
     //  下次更新的时候 会再次执行这个 effect
     // 当你调用  stringify 的时候，会访问数组中的每一个属性，包括 length
     effect(() => {
-        // console.log(JSON.stringify(proxyObj.arr)); // 第二种
+        console.log(JSON.stringify(proxyObj.arr)); // 第二种
 
         // console.log(proxyObj.arr.length);  --// ---第一种 --- console.log(proxyObj.arr[2]); 
     })
-    // proxyObj.arr.push(100)  //第二种 push先 ->【1,2,3,100】 -> 然后把 length 变成 4
-    proxyObj.arr[1] = '1111'
+    proxyObj.arr.push(100)  //第二种 push先 ->【1,2,3,100】 -> 然后把 length 变成 4
+    // proxyObj.arr[1] = '1111'
 
-    // proxyObj.arr.length = 1  第一种
+    // proxyObj.arr.length = 1  //第一种
     
     //  1，通过索引更新数组
     // 2. 可以通过length 来修改
-    // 3。 去 lenght ，新增
+    // 3。 去 length ，新增
 </script>
 
 </html>

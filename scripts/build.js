@@ -4,7 +4,7 @@
 const fs = require('fs')
 const execa = require('execa')  // 可以打开一个进程，去做打包
 
-// 读取目录中的 我要打包的文件夹，忽略掉纯文件
+// 读取目录中的 我要打包的文件夹，忽略掉纯文件（非文件夹）
 const dirs = fs.readdirSync('packages').filter(p => fs.statSync(`packages/${p}`).isDirectory())
 
 // 并行打包所有文件夹

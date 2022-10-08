@@ -30,9 +30,9 @@ function createReactiveEffect(fn, options) {
 }
 
 
-// 映射表
+// 映射表  -- 类似于数组 每一项是 一个索引对应下方的一个 对象
 // WeekMap{
-//     {name:"张三",age:26}:{
+//     {name:"张三2",age:6}:{
 //         name:new Set(effect,effect), //  多个
 //         age: new Set (effect)
 //     }
@@ -58,7 +58,6 @@ export function track(target, type, key) {
         dep.add(activeEffect)
     }
     // console.log(targetMap, '依赖');
-
 }
 
 // 触发更新
@@ -79,19 +78,19 @@ export function trigger(target, type, key, newValue, oldValue?) {
     //  1. 如果 更改的数组长度 小于依赖收集的长度 要重新触发渲染
     //  2. 如果调用了 push 方法，或者其他新增数组的方法 (必须能改变长度的方法)，也需要触发更新 
     if (key === 'length' && isArray(target)) { // 是数组 并且修改了 length
-        console.log('00');
+        console.log(depsMap,'121');
+        console.log(targetMap,'targetMap');
         
         depsMap.forEach((dep, key) => {
             console.log(dep, key, '--', newValue); // 我对 2 的这一项收集了 effect
             if (key > newValue || key === 'length') {
-                console.log('ss');
-
                 add(dep) // 更改的数组长度 比收集到的属性值小
             }
         })
     } else {
         console.log('222');
         add(depsMap.get(key))
+        
         switch (type) {
             case 'add':
                 if (isArray(target) && isIntegerKey(key)) {

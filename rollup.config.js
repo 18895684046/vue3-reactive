@@ -48,4 +48,4 @@ function createConfig(format, output) {
 
 export default packageOptions.formats.map(format => createConfig(format, outputConfig[format]))
 
-// 一个包要打包说个格式 esModule commonjs iife
+// 一个包要打包多个格式 esModule commonjs iife
