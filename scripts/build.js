@@ -27,3 +27,5 @@ async function runParallel(dirs, iterFn) {
 runParallel(dirs, build).then(() => {
     console.log('打包成功!');
 })
+
+
